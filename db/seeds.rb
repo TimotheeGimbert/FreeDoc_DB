@@ -11,19 +11,22 @@ Appointment.destroy_all
 Patient.destroy_all
 Doctor.destroy_all
 City.destroy_all
+Specialty.destroy_all
 
 bdx = City.create(name: 'Bordeaux')
 nan = City.create(name: 'Nantes')
 par = City.create(name: 'Paris')
 
+gene = Specialty.create(name: 'Medecin Generaliste')
+optic = Specialty.create(name: 'Medecin Opticien')
+osteo = Specialty.create(name: 'Medecin Ostéopathe')
+
 10.times do
   doctor = Doctor.create(
     first_name: Faker::Name.first_name,
     last_name: 'Dr. ' + Faker::Name.last_name,
-    specialty: ['generalist', 'globalist', 'limitist', 'placebist'][rand(0..3)],
     zip_code: Faker::Number.within(range: 33000..34000),
     city: [bdx, nan, par][rand(0..2)]
-
   )
   puts doctor
 end
@@ -42,7 +45,8 @@ end
     doctor: Doctor.all[rand(0..9)],
     patient: Patient.all[rand(0..50)],
     date: Faker::Date.between(from: 2.days.ago, to: Date.today),
-    city: [bdx, nan, par][rand(0..2)]
+    city: [bdx, nan, par][rand(0..2)],
+    specialty: [gene, optic, osteo][rand(0..2)]
   )
   puts appointment
 end
