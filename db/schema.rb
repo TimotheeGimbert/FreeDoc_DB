@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_28_115744) do
+ActiveRecord::Schema.define(version: 2021_10_28_135057) do
 
   create_table "appointments", force: :cascade do |t|
     t.datetime "date"
@@ -18,8 +18,16 @@ ActiveRecord::Schema.define(version: 2021_10_28_115744) do
     t.datetime "updated_at", null: false
     t.integer "patient_id"
     t.integer "doctor_id"
+    t.integer "city_id"
+    t.index ["city_id"], name: "index_appointments_on_city_id"
     t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "doctors", force: :cascade do |t|
@@ -29,6 +37,8 @@ ActiveRecord::Schema.define(version: 2021_10_28_115744) do
     t.string "zip_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "city_id"
+    t.index ["city_id"], name: "index_doctors_on_city_id"
   end
 
   create_table "patients", force: :cascade do |t|
@@ -36,6 +46,8 @@ ActiveRecord::Schema.define(version: 2021_10_28_115744) do
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "city_id"
+    t.index ["city_id"], name: "index_patients_on_city_id"
   end
 
 end
